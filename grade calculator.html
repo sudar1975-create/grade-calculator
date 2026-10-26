@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eaf2f8;
+            text-align: center;
+        }
+
+        .box {
+            background: white;
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Grade Calculator</h2>
+
+    <input type="number" id="s1" placeholder="Subject 1" min="0" max="100">
+    <input type="number" id="s2" placeholder="Subject 2" min="0" max="100">
+    <input type="number" id="s3" placeholder="Subject 3" min="0" max="100">
+    <input type="number" id="s4" placeholder="Subject 4" min="0" max="100">
+    <input type="number" id="s5" placeholder="Subject 5" min="0" max="100">
+
+    <br><br>
+    <button onclick="calculate()">Calculate Grade</button>
+
+    <p id="result"></p>
+</div>
+
+<script>
+function calculate() {
+    let marks = [];
+
+    for (let i = 1; i <= 5; i++) {
+        let value = document.getElementById("s" + i).value;
+
+        if (value === "" || Number(value) < 0 ||
+            Number(value) > 100) {
+            document.getElementById("result").innerHTML =
+                "Enter marks between 0 and 100.";
+            return;
+        }
+
+        marks.push(Number(value));
+    }
+
+    let total = marks.reduce((a, b) => a + b, 0);
+    let average = total / 5;
+    let grade;
+
+    if (average >= 90)
+        grade = "A+";
+    else if (average >= 80)
+        grade = "A";
+    else if (average >= 70)
+        grade = "B";
+    else if (average >= 60)
+        grade = "C";
+    else if (average >= 50)
+        grade = "D";
+    else
+        grade = "F";
+
+    document.getElementById("result").innerHTML =
+        "Total: " + total +
+        "<br>Average: " + average.toFixed(2) + "%" +
+        "<br>Grade: " + grade;
+}
+</script>
+
+</body>
+</html>
